@@ -1,9 +1,15 @@
-name: Ultra Simple CI
+name: build
 
-on: [push]
+on:
+  push: 
+    branches: [main,develop]
+  pull_request: [main]
 
 jobs:
-  hello:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Привет, CI работает!"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+      - name: build 
+        run: src/cmd/main.go
