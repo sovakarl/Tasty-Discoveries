@@ -3,7 +3,8 @@ name: build
 on:
   push: 
     branches: [main,develop]
-  pull_request: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
@@ -11,5 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
       - name: build 
-        run: src/cmd/main.go
+        run: go build -v src/cmd/main.go
