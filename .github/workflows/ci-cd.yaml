@@ -1,0 +1,9 @@
+name: Ultra Simple CI
+
+on: [push]
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Привет, CI работает!"
