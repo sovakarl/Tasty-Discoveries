@@ -9,7 +9,7 @@ services:
     - cluster.initial_cluster_manager_nodes=opensearch-node
     - bootstrap.memory_lock=true 
     - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-    - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+    - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${DB_PASSWORD}
     ulimits:
         memlock:
           soft: -1
@@ -36,6 +36,15 @@ services:
       OPENSEARCH_HOSTS: '["https://opensearch-node:9200"]' 
     networks:
       - opensearch-net
+  app:
+    build: . 
+    container_name: app 
+    ports:
+      - 8080:8080
+    environment:
+      - DB_PORT=9200
+      - DB_HOST=opensearch-node
+      - DB_PASSWORD=OPENSEARCH_PASSWORD
 
 volumes:
   opensearch-data:
